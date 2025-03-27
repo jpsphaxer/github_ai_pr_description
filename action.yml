@@ -1,10 +1,5 @@
 name: 'AI PR Description Assistant'
 description: 'Uses AI to generate PR descriptions'
-inputs:
-  pr-template-path:
-    description: 'Path to PR template file'
-    required: false
-    default: '.github/pull_request_template.md'
 runs:
   using: 'composite'
   steps:
@@ -21,6 +16,6 @@ runs:
       run: python src/main.py
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }} 
-        PR_TEMPLATE_PATH: ${{ inputs.pr-template-path }}
+        GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+        OPENAI_API_KEY: ${{ env.OPENAI_API_KEY }}
+        PR_TEMPLATE_PATH: ${{ env.PR_TEMPLATE_PATH }}

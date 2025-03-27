@@ -4,9 +4,9 @@ from openai import OpenAI
 from github import Github
 
 def main():
-    github_token = os.getenv('GITHUB_TOKEN')
-    openai_key = os.getenv('OPENAI_API_KEY')  
-    template_path = os.getenv('PR_TEMPLATE_PATH')
+    github_token = os.environ['GITHUB_TOKEN']
+    openai_key = os.environ['OPENAI_API_KEY']
+    template_path = os.environ.get('PR_TEMPLATE_PATH', '.github/pull_request_template.md')
     
     g = Github(github_token)
     openai = OpenAI(api_key=openai_key)
