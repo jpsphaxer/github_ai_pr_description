@@ -1,5 +1,13 @@
 name: 'AI PR Description Assistant'
 description: 'Uses AI to generate PR descriptions'
+author: 'jpsphaxer'
+
+inputs:
+  pr-template-path:
+    description: 'Path to the PR template file'
+    required: false
+    default: '.github/pull_request_template.md'
+
 runs:
   using: 'composite'
   steps:
@@ -9,14 +17,13 @@ runs:
         python-version: '3.10'
     
     - name: Install dependencies
-      run: |
-        pip install -r ${{ github.action_path }}/requirements.txt
+      run: pip install -r ${{ github.action_path }}/requirements.txt
       shell: bash
     
     - name: Run the action
       run: python ${{ github.action_path }}/src/main.py
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}
         OPENAI_API_KEY: ${{ env.OPENAI_API_KEY }}
-        PR_TEMPLATE_PATH: ${{ env.PR_TEMPLATE_PATH }}
+        PR_TEMPLATE_PATH: ${{ inputs.pr-template-path }}
